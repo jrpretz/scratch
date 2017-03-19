@@ -34,30 +34,32 @@ def sumDistribution(dice):
             cumulative = jointProbability(cumulative,diceProbabilities(dice[i]))
     return cumulative
 
-import sys
-inputSides = []
-if len(sys.argv) < 2:
-    print "Usage: python roll.py DIE_SIDES"
-    print " where DIE_SIDES is a list of the sides of the die you want to roll"
-    print " e.g. \"python roll.py 4 4 20\" will compute the total probabilities"
-    print " when rolling two 4-sided die and one 20-sided die"
-    print " Output is just to stdout. First column is the dice sum. "
-    print " Second column is the probability of getting that roll"
-    print " Third column is the probability for getting that roll or lower"
-    sys.exit(0)
 
-for i in range(1,len(sys.argv)):
-    nside = None
-    try:
-        nside = int(sys.argv[i])
-    except:
-        print "couldn't parse option %d: '%s' as an int"%(i,sys.argv[i])
-        sys.exit(1)
-    inputSides.append(nside)
+if __name__ == "__main__":
+    import sys
+    inputSides = []
+    if len(sys.argv) < 2:
+        print "Usage: python roll.py DIE_SIDES"
+        print " where DIE_SIDES is a list of the sides of the die you want to roll"
+        print " e.g. \"python roll.py 4 4 20\" will compute the total probabilities"
+        print " when rolling two 4-sided die and one 20-sided die"
+        print " Output is just to stdout. First column is the dice sum. "
+        print " Second column is the probability of getting that roll"
+        print " Third column is the probability for getting that roll or lower"
+        sys.exit(0)
 
-distribution = sumDistribution(inputSides)
+    for i in range(1,len(sys.argv)):
+        nside = None
+        try:
+            nside = int(sys.argv[i])
+        except:
+            print "couldn't parse option %d: '%s' as an int"%(i,sys.argv[i])
+            sys.exit(1)
+        inputSides.append(nside)
 
-cumulative = 0.0
-for roll,prob in distribution.iteritems():
-    cumulative = cumulative + prob
-    print roll,prob,cumulative
+    distribution = sumDistribution(inputSides)
+
+    cumulative = 0.0
+    for roll,prob in distribution.iteritems():
+        cumulative = cumulative + prob
+        print roll,prob,cumulative
