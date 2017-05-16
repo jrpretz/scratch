@@ -40,3 +40,21 @@ tot = np.append(np.ones((X.shape[0],1)),X,axis=1)
 print tot[0][0],"should be 1"
 print tot[1][0],"should be 1"
 print tot[2][0],"should be 1"
+
+# filling a big array a column at a time
+bigArray = np.zeros(shape=(5000,6))
+
+one = np.ones(5000) * 1.
+two = np.ones(5000) * 2.
+
+threeFour = np.ones(shape=(5000,2)) * 3.5
+five = np.random.rand(5000)
+
+print five
+
+bigArray[:,1] = one
+bigArray[:,2] = two
+bigArray[:,3:5] = threeFour
+bigArray[:,5] = five
+
+print bigArray
