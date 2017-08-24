@@ -11,13 +11,17 @@ function loadXMLDoc() {
       myFunction(this);
     }
   };
-  xmlhttp.open("GET", "data.xml", true);
+  xmlhttp.open("GET", "data.php", true);
   xmlhttp.send();
 }
 
 function myFunction(xml) {
   var x, i, xmlDoc, txt;
   xmlDoc = xml.responseXML;
+  console.log(xml.responseText);
+  //parser = new DOMParser();
+  //xmlDoc = parser.parseFromString(xml.responseText,"text/xml");
+  //console.log(xmlDoc);
   txt = "";
   x = xmlDoc.getElementsByTagName("x");
   y = xmlDoc.getElementsByTagName("y");
