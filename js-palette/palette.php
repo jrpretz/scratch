@@ -35,6 +35,7 @@ margin: 0px 0px 0px 0px;
 </style>
 <script src="rainbow_palette.js"></script>
 <script src="viridis.js"></script>
+<script src="inferno.js"></script>
 <script>
 
 
@@ -42,7 +43,9 @@ var main = function(){
    for(i = 0 ; i < 256 ; i++){
      color = parseInt(i * 255./100.);
      //     color = rainbow_palette(i /255.);
-     color = viridis(i /255.);
+     //     color = viridis(i /255.);
+     color = inferno(i /255.);
+     console.log(i/255. + " " + color.red + " " + color.green + " " + color.blue);
      //     document.getElementById("bar" + i).style.backgroundColor="rgb(" + color.red + "," + color.green + "," + color.blue + ")";
      //document.getElementById("bar" + i).style.backgroundColor="rgb(" + color.red + "," + color.green + "," + color.blue + ")";
      document.getElementById("red_" + i).style.backgroundColor="rgb(" + color.red + ",0,0)";
