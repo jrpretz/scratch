@@ -12,7 +12,7 @@ sess.run(init)
 
 sess.run(f)
 
-updates = tf.train.GradientDescentOptimizer(0.3).minimize(f,var_list=[x])
+updates = tf.train.GradientDescentOptimizer(0.3).minimize(f,var_list=[x,y])
 
 for i in range(0,50):
     sess.run(updates)
