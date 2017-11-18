@@ -13,7 +13,9 @@ x1 = -150.
 x2 = -50.
 
 m = Basemap(resolution='i',projection='merc', llcrnrlat=y1,urcrnrlat=y2,llcrnrlon=x1,urcrnrlon=x2)
-m.drawcountries(linewidth=0.5)
+#m.drawcountries(linewidth=0.5)
 m.drawcoastlines(linewidth=0.5)
-m.drawstates(linewidth=0.5)
+#m.drawstates(linewidth=0.5)
+m.readshapefile('cb_2016_us_county_500k','counties',drawbounds=True)
+
 plt.savefig('map.png',dpi=300)
