@@ -24,7 +24,7 @@ for i in range(len(labels)):
 
 # build the neural net
 model = Sequential()
-model.add(Dense(16,input_dim=4,activation='sigmoid'))
+model.add(Dense(16,input_dim=nFeatures,activation='sigmoid'))
 model.add(Dense(16,activation='sigmoid'))
 model.add(Dense(3, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
