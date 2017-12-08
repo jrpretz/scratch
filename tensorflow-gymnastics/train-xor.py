@@ -2,6 +2,13 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
+from datetime import datetime
+
+now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+root_logdir = "tf_logs"
+logdir="{}/run-{}/".format(root_logdir,now)
+
 #%matplotlib inline
 
 def forwardprop(X, w_1,b_1, w_2,b_2):
@@ -65,6 +72,8 @@ sess=tf.Session()
 cost    = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=y, logits=h))
 updates = tf.train.MomentumOptimizer(learning_rate=0.1,momentum=0.1).minimize(cost)
 #updates = tf.train.GradientDescentOptimizer(0.5).minimize(cost)
+cost_summary = tf.summary.scalar('Cost',cost)
+file_writer = tf.summary.FileWriter(logdir,tf.get_default_graph())
 
 sess.run(tf.global_variables_initializer())
 
@@ -75,16 +84,21 @@ for epoch in range(100):
     y_tmp = y_train[perm,:]
     
     
-    for i in range(int(y_train.shape[0]/5)):
-        low = i*5
-        high = (i+1)*5
-        sess.run(updates,feed_dict={X: X_tmp[low:high,:], y: y_tmp[low:high]})
-    print("%d %f"%(epoch,sess.run(cost,feed_dict={X: X_train, y: y_train})))
-    
-    #for i in range(0,N):
-    #    sess.run(updates,feed_dict={X: X_train[i:i+1,:],y:y_train[i:i+1,:]})
-    #sess.run(updates,feed_dict={X: X_train,y:y_train})
+    #for i in range(int(y_train.shape[0]/5)):
+    #    low = i*5
+    #    high = (i+1)*5
+    #    sess.run(updates,feed_dict={X: X_tmp[low:high,:], y: y_tmp[low:high]})
     #print("%d %f"%(epoch,sess.run(cost,feed_dict={X: X_train, y: y_train})))
+
+    
+    for i in range(0,N):
+        sess.run(updates,feed_dict={X: X_train[i:i+1,:],y:y_train[i:i+1,:]})
+    sess.run(updates,feed_dict={X: X_train,y:y_train})
+    print("%d %f"%(epoch,sess.run(cost,feed_dict={X: X_train, y: y_train})))
+    summary_str = sess.run(cost_summary,feed_dict={X: X_train, y: y_train})
+    file_writer.add_summary(summary_str,epoch)
+
+file_writer.close()
 
 
 X_phase = np.zeros(shape=(10000,2))
