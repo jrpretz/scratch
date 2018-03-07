@@ -27,16 +27,31 @@ class tanh_activation:
     def evald(self,z):
         t = np.tanh(z)
         return 1.-t**2
-        
+
+# defines the network
+# it is way unnecessarily complicated for this simple example, but
+# i wanted to see it generalize to deeper layers 
 def init_network():
     network = {}
     network["W1"] = np.random.randn(10,2)
     network["b1"] = np.random.randn(10,1)
-    network["W2"] = np.random.randn(3,10)
-    network["b2"] = np.random.randn(3,1)
+
+    network["W2"] = np.random.randn(10,10)
+    network["b2"] = np.random.randn(10,1)
+
+    network["W3"] = np.random.randn(10,10)
+    network["b3"] = np.random.randn(10,1)
+
+    network["W4"] = np.random.randn(3,10)
+    network["b4"] = np.random.randn(3,1)
+    
     network["activation1"] = tanh_activation()
-    network["activation2"] = linear_activation()
-    network["depth"] = 2
+    network["activation2"] = tanh_activation()
+    network["activation3"] = tanh_activation()
+    network["activation4"] = linear_activation()
+    
+    network["depth"] = 4
+
     return network
 
 # start forward propagation at layer 1 (not 0)
@@ -55,6 +70,12 @@ def forward_propagate(l,network):
 
     forward_propagate(l+1,network)
 
+# compute derivatives of l-1st layer activations and parameters
+# of the lth layer from the derivatives of the activations in the lth
+# layer.
+#
+# the function works backward recursively, so you call it on the last layer
+# and it'll work its way back
 def backward_propagate(l,network):
     if l == 0:
         return
