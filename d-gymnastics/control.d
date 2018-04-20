@@ -29,4 +29,10 @@ void main(){
     writef("%d ",i);
   }
   writef("\n");
+
+  // for each over a range... reversed
+  foreach_reverse(int i ; 0..7){
+    writef("%d ",i);
+  }
+  writef("\n");
 }

@@ -1,4 +1,7 @@
-all: hello control types class memory references
+all: hello control types class memory references parallel
+
+parallel: parallel.d
+	dmd parallel.d -of=parallel
 
 references: references.d
 	dmd references.d -of=references
