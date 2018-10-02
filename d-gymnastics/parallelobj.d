@@ -3,9 +3,9 @@ import std.concurrency;
 import core.thread;
 
 class MyClass{
-  this(int id, double x_start){
+    this(int id, double x_start){
     id_ = id;
-    x_ = x_start;
+    x_ =     x_start;
   }
 
   void iterate(){
